@@ -46,7 +46,7 @@ var MultiView = Backbone.View.extend({
             htmlString += '<a href="#details/' + inputModel.get('listing_id') + '">'
                         + '<div class="itemContainer"' + inputModel.get('listing_id') + '">'
              			+ '<div class="title">' + inputModel.get('title') + '</div>'
-             			+ '<img src="' + inputModel.get('Images')[0].url_170x135 + '">'
+             			+ '<img class = "image" src="' + inputModel.get('Images')[0].url_170x135 + '">'
              			+ '<div class="price">' + '$' + inputModel.get('price') + '</div>'
              			+ '</div>' + '</a>'
             containerNode.innerHTML = htmlString

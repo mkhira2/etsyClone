@@ -36,16 +36,26 @@ p {
 
 .headline {
     text-align: center;
-    font-size: 3rem;
+    font-size: 40px;
     font-family: "Times New Roman", Times, serif;
     color: orangered;
     text-decoration: none;
 }
 
+.headline:hover {
+    text-decoration: none;
+    color: orangered;
+}
+
+.headline:visited {
+    text-decoration: none;
+    color: orangered;
+}
+
 .search {
     text-align: center;
     width: 40%;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 .suggestion {
@@ -98,8 +108,8 @@ ITEM BOXES
     box-shadow: inset 0 0 0 3px teal;
 }
 
-.title {
-    margin-bottom: 10px;
+.image {
+    margin: 10px 0;
 }
 
 .price {
@@ -122,10 +132,11 @@ DETAIL PAGE
 .detailTitle {
     font-size: 20px;
     color: orangered;
+    margin: 0 0 20px 0;
 }
 
 .detailImg {
-    margin: 15px;
+    margin: 20px 15px 15px 15px;
 }
 
 .detailDescription {
