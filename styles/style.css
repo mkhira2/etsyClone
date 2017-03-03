@@ -1,10 +1,6 @@
 /*--------------------------------------------------
 ALWAYS INCLUDE
 --------------------------------------------------*/
-/*#B94629
-#E3DEC1
-#E89F65
-#47AFAF*/
 
 * {
     box-sizing: border-box;
@@ -16,7 +12,7 @@ img {
 
 body {
     text-align: center;
-    padding: 25px;
+    padding: 15px;
     background: #E3DEC1;
 }
 
@@ -79,6 +75,8 @@ ITEM BOXES
 
 .container {
     text-align: center;
+    width: 100%;
+    margin: 0 auto;
 }
 
 .itemContainer {
@@ -90,8 +88,14 @@ ITEM BOXES
     padding: 10px;
     background-color: lightgrey;
     font-size: 18px;
-    /*height: 350px;*/
     box-shadow: 2px 2px black;
+    height: 350px;
+}
+
+.itemContainer:hover {
+    background: rgba(0,0,0,0);
+    color: #3a7999;
+    box-shadow: inset 0 0 0 3px teal;
 }
 
 .title {
@@ -101,4 +105,30 @@ ITEM BOXES
 .price {
     background: green;
     color: white;
+}
+
+/*--------------------------------------------------
+DETAIL PAGE
+--------------------------------------------------*/
+
+.detailPage {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.detailTitle {
+    font-size: 20px;
+    color: orangered;
+}
+
+.detailImg {
+    margin: 15px;
+}
+
+.detailDescription {
+    font-size: 18px;
+    color: black;
 }

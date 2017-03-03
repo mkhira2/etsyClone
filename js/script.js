@@ -3,6 +3,7 @@
 //--------------------------------------------------
 
 var baseUrl = 'https://openapi.etsy.com/v2/listings/active.js'
+var url = 'https://openapi.etsy.com/v2/listings/'
 var apiKey = '9sfgsyb7qbqbo1c79sraetsl'
     // format: https://openapi.etsy.com/v2/listings/active?api_key=9sfgsyb7qbqbo1c79sraetsl
     // search url: https://openapi.etsy.com/v2/listings/active?keywords=teeth&api_key=9sfgsyb7qbqbo1c79sraetsl
@@ -12,7 +13,7 @@ var apiKey = '9sfgsyb7qbqbo1c79sraetsl'
 //--------------------------------------------------
 
 var MultiCollection = Backbone.Collection.extend({
-    url: 'https://openapi.etsy.com/v2/listings/active.js',
+    url: baseUrl,
 
     parse: function(apiResponse) {
         return apiResponse.results
@@ -21,7 +22,11 @@ var MultiCollection = Backbone.Collection.extend({
 })
 
 var SingleModel = Backbone.Model.extend({
+        url: url,
 
+    parse: function(apiResponse) {
+        return apiResponse.results[0]
+    }
 })
 
 //--------------------------------------------------
@@ -38,18 +43,34 @@ var MultiView = Backbone.View.extend({
         var containerNode = document.querySelector('.container')
         var htmlString = ''
         this.collection.forEach(function(inputModel) {
-            htmlString += '<div class="itemContainer"' + inputModel.get('listing_id') + '">'
+            htmlString += '<a href="#details/' + inputModel.get('listing_id') + '">'
+                        + '<div class="itemContainer"' + inputModel.get('listing_id') + '">'
              			+ '<div class="title">' + inputModel.get('title') + '</div>'
              			+ '<img src="' + inputModel.get('Images')[0].url_170x135 + '">'
              			+ '<div class="price">' + '$' + inputModel.get('price') + '</div>'
-             			+ '</div>'
+             			+ '</div>' + '</a>'
             containerNode.innerHTML = htmlString
         })
     }
 })
 
 var SingleView = Backbone.View.extend({
+    initialize: function() {
+        document.querySelector('.container').innerHTML = '<img src="magnify.gif">'
+        this.listenTo(this.model, 'sync', this.render)
+    },
 
+    render: function() {
+        var containerNode = document.querySelector('.container')
+        htmlString = ''
+        console.log(this)
+        htmlString += '<div class="detailPage">'
+                    + '<div class ="detailTitle">' + this.model.attributes.title + '</div>'
+                    + '<img class ="detailImg" src="' + this.model.attributes.Images[0].url_570xN + '">'
+                    + '<div class="detailDescription">' + this.model.attributes.description + '</div>'
+                    + '</div>'
+        containerNode.innerHTML = htmlString
+    }
 })
 
 //--------------------------------------------------
@@ -70,7 +91,7 @@ var EtsyRouter = Backbone.Router.extend({
             dataType: 'jsonp',
             data: {
                 includes: "Images",
-                "api_key": '9sfgsyb7qbqbo1c79sraetsl'
+                "api_key": apiKey
             }
         })
         new MultiView({
@@ -84,7 +105,7 @@ var EtsyRouter = Backbone.Router.extend({
             dataType: 'jsonp',
             data: {
                 includes: "Images",
-                "api_key": "9sfgsyb7qbqbo1c79sraetsl",
+                "api_key": apiKey,
                 keywords: query
             }
         })
@@ -94,7 +115,18 @@ var EtsyRouter = Backbone.Router.extend({
     },
 
     showSingleView: function(id) {
-        
+        var singleInstance = new SingleModel()
+        singleInstance.url += id + '.js'
+        singleInstance.fetch({
+            dataType: 'jsonp',
+            data: {
+                includes: "Images",
+                "api_key": apiKey
+            }
+        })
+        new SingleView({
+            model: singleInstance
+        })
     },
 
     takeMeHome: function() {
