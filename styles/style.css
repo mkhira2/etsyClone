@@ -1,27 +1,104 @@
 /*--------------------------------------------------
 ALWAYS INCLUDE
 --------------------------------------------------*/
+/*#B94629
+#E3DEC1
+#E89F65
+#47AFAF*/
 
 * {
-	box-sizing: border-box;
-	font-size: 16px;
+    box-sizing: border-box;
 }
 
 img {
-	max-width: 100%;
+    max-width: 100%;
 }
 
-h1 {
-	text-align: center;
-	font-size: 3rem;
+body {
+    text-align: center;
+    padding: 25px;
+    background: #E3DEC1;
 }
 
-.navBar {
-	text-align: center;
+
+/*--------------------------------------------------
+NAV / SEARCH BAR
+--------------------------------------------------*/
+
+hr {
+    width: 60%;
+}
+
+a {
+    text-decoration: none;
+}
+
+p {
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+.headline {
+    text-align: center;
+    font-size: 3rem;
+    font-family: "Times New Roman", Times, serif;
+    color: orangered;
+    text-decoration: none;
 }
 
 .search {
-	text-align: center;
-	width: 40%;
-	font-size: 1rem;
+    text-align: center;
+    width: 40%;
+    font-size: 1rem;
+}
+
+.suggestion {
+    margin: 10px;
+}
+
+.suggestion:visited {
+    color: blue;
+}
+
+.links {
+    text-decoration: none;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.navBar {
+    text-align: center;
+    margin-bottom: 20px;
+    display: block;
+}
+
+
+/*--------------------------------------------------
+ITEM BOXES
+--------------------------------------------------*/
+
+.container {
+    text-align: center;
+}
+
+.itemContainer {
+    width: 18%;
+    display: inline-block;
+    border: 2px solid grey;
+    margin: 10px;
+    vertical-align: top;
+    padding: 10px;
+    background-color: lightgrey;
+    font-size: 18px;
+    /*height: 350px;*/
+    box-shadow: 2px 2px black;
+}
+
+.title {
+    margin-bottom: 10px;
+}
+
+.price {
+    background: green;
+    color: white;
 }
