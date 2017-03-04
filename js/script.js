@@ -3,10 +3,8 @@
 //--------------------------------------------------
 
 var baseUrl = 'https://openapi.etsy.com/v2/listings/active.js'
-var url = 'https://openapi.etsy.com/v2/listings/'
+var searchUrl = 'https://openapi.etsy.com/v2/listings/'
 var apiKey = '9sfgsyb7qbqbo1c79sraetsl'
-    // format: https://openapi.etsy.com/v2/listings/active?api_key=9sfgsyb7qbqbo1c79sraetsl
-    // search url: https://openapi.etsy.com/v2/listings/active?keywords=teeth&api_key=9sfgsyb7qbqbo1c79sraetsl
 
 //--------------------------------------------------
 // MODELS
@@ -15,16 +13,15 @@ var apiKey = '9sfgsyb7qbqbo1c79sraetsl'
 var MultiCollection = Backbone.Collection.extend({
     url: baseUrl,
 
-    parse: function(apiResponse) {
+    parse: function(apiResponse) { // obtain json data for home page
         return apiResponse.results
     }
-
 })
 
 var SingleModel = Backbone.Model.extend({
-        url: url,
+        url: searchUrl,
 
-    parse: function(apiResponse) {
+    parse: function(apiResponse) { // obtain jason data for details page
         return apiResponse.results[0]
     }
 })
@@ -33,20 +30,20 @@ var SingleModel = Backbone.Model.extend({
 // VIEWS
 //--------------------------------------------------
 
-var MultiView = Backbone.View.extend({
+var MultiView = Backbone.View.extend({ // render home page with all listings
     initialize: function() {
-        document.querySelector('.container').innerHTML = '<img src="magnify.gif">'
-        this.listenTo(this.collection, 'sync', this.render)
+        document.querySelector('.container').innerHTML = '<img src="magnify.gif">' // loading gif
+        this.listenTo(this.collection, 'sync', this.render) // when the collection syncs with the server, run render function
     },
 
-    render: function() {
+    render: function() { // build html for home page
         var containerNode = document.querySelector('.container')
         var htmlString = ''
         this.collection.forEach(function(inputModel) {
             htmlString += '<a href="#details/' + inputModel.get('listing_id') + '">'
                         + '<div class="itemContainer"' + inputModel.get('listing_id') + '">'
+                        + '<img class = "image" src="' + inputModel.get('Images')[0].url_170x135 + '">'
              			+ '<div class="title">' + inputModel.get('title') + '</div>'
-             			+ '<img class = "image" src="' + inputModel.get('Images')[0].url_170x135 + '">'
              			+ '<div class="price">' + '$' + inputModel.get('price') + '</div>'
              			+ '</div>' + '</a>'
             containerNode.innerHTML = htmlString
@@ -54,20 +51,21 @@ var MultiView = Backbone.View.extend({
     }
 })
 
-var SingleView = Backbone.View.extend({
+var SingleView = Backbone.View.extend({ // render view for details page
     initialize: function() {
-        document.querySelector('.container').innerHTML = '<img src="magnify.gif">'
-        this.listenTo(this.model, 'sync', this.render)
+        document.querySelector('.container').innerHTML = '<img src="magnify.gif">' // loading gif
+        this.listenTo(this.model, 'sync', this.render) // when the model syncs with the server, run render function
     },
 
-    render: function() {
+    render: function() { // build html for details page
         var containerNode = document.querySelector('.container')
-        htmlString = ''
+        var htmlString = ''
         console.log(this)
         htmlString += '<div class="detailPage">'
-                    + '<div class ="detailTitle">' + this.model.attributes.title + '</div>'
-                    + '<img class ="detailImg" src="' + this.model.attributes.Images[0].url_570xN + '">'
-                    + '<div class="detailDescription">' + this.model.attributes.description + '</div>'
+                    + '<a href="https://www.etsy.com/listing/' + this.model.get("listing_id") + '"' + 'target="_blank"><button type="button" class="buyMe">Buy Me!</button></a>'
+                    + '<div class ="detailTitle">' + this.model.get('title') + '</div>'
+                    + '<img class ="detailImg" src="' + this.model.get('Images')[0].url_570xN + '">'
+                    + '<div class="detailDescription">' + this.model.get('description') + '</div>'
                     + '</div>'
         containerNode.innerHTML = htmlString
     }
@@ -78,46 +76,50 @@ var SingleView = Backbone.View.extend({
 //--------------------------------------------------
 
 var EtsyRouter = Backbone.Router.extend({
+    // define url routes
     routes: {
         "home": "showMultiView",
         "search/:query": "performSearch",
         "details/:id": "showSingleView",
         "*default": "takeMeHome"
     },
-
+    // route for home page
     showMultiView: function() {
         var homeInstance = new MultiCollection()
-        homeInstance.fetch({
+        homeInstance.fetch({ // send request for all etsy listings
             dataType: 'jsonp',
             data: {
                 includes: "Images",
-                "api_key": apiKey
+                "api_key": apiKey,
+                limit: 50
+
             }
         })
         new MultiView({
             collection: homeInstance
         })
     },
-
+    // route for queries
     performSearch: function(query) {
         var newSearch = new MultiCollection()
-        newSearch.fetch({
+        newSearch.fetch({ // send request for particular etsy listings
             dataType: 'jsonp',
             data: {
                 includes: "Images",
                 "api_key": apiKey,
-                keywords: query
+                keywords: query,
+                limit: 50
             }
         })
         new MultiView({
             collection: newSearch
         })
     },
-
+    // route for details page
     showSingleView: function(id) {
         var singleInstance = new SingleModel()
         singleInstance.url += id + '.js'
-        singleInstance.fetch({
+        singleInstance.fetch({ // send request for details of esty listing
             dataType: 'jsonp',
             data: {
                 includes: "Images",
@@ -128,7 +130,7 @@ var EtsyRouter = Backbone.Router.extend({
             model: singleInstance
         })
     },
-
+    // default to home page upon inital load
     takeMeHome: function() {
     	location.hash = 'home'
     }

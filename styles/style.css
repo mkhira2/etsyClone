@@ -99,23 +99,26 @@ ITEM BOXES
     background-color: lightgrey;
     font-size: 18px;
     box-shadow: 2px 2px black;
-    height: 350px;
 }
 
 .itemContainer:hover {
-    background: rgba(0,0,0,0);
+    background: #E3DEC1;
     color: #3a7999;
     box-shadow: inset 0 0 0 3px teal;
 }
 
-.image {
+.title {
     margin: 10px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .price {
     background: green;
     color: white;
 }
+
 
 /*--------------------------------------------------
 DETAIL PAGE
@@ -132,7 +135,7 @@ DETAIL PAGE
 .detailTitle {
     font-size: 20px;
     color: orangered;
-    margin: 0 0 20px 0;
+    margin: 20px;
 }
 
 .detailImg {
@@ -142,4 +145,23 @@ DETAIL PAGE
 .detailDescription {
     font-size: 18px;
     color: black;
+}
+
+.buyMe {
+    background-color: green;
+    border-radius: 28px;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    font-size: 24px;
+    padding: 15px;
+    text-decoration: none;
+    margin-bottom: 15px;
+    width: 25%;
+    margin: 0 auto;
+}
+
+.buyMe:hover {
+    background: white;
+    color: green;
 }
