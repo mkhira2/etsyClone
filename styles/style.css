@@ -36,33 +36,47 @@ p {
 
 .headline {
     text-align: center;
-    font-size: 40px;
+    font-size: 50px;
     font-family: "Times New Roman", Times, serif;
     color: orangered;
     text-decoration: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: lightgrey;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
 }
 
-.headline:hover {
+.headline:hover { /* keep headline style the same on hover */
     text-decoration: none;
     color: orangered;
 }
 
-.headline:visited {
+.headline:visited { /* keep headline style the same after click */
     text-decoration: none;
     color: orangered;
+}
+
+.navBar {
+    text-align: center;
+    margin-bottom: 20px;
+    display: block;
 }
 
 .search {
     text-align: center;
     width: 40%;
     font-size: 16px;
+    margin: 10px 0;
 }
 
 .suggestion {
     margin: 10px;
 }
 
-.suggestion:visited {
+.suggestion:visited { /* keep link style the same after click */
     color: blue;
 }
 
@@ -70,12 +84,6 @@ p {
     text-decoration: none;
     text-align: center;
     margin-bottom: 40px;
-}
-
-.navBar {
-    text-align: center;
-    margin-bottom: 20px;
-    display: block;
 }
 
 
@@ -90,7 +98,7 @@ ITEM BOXES
 }
 
 .itemContainer {
-    width: 18%;
+    width: 30%;
     display: inline-block;
     border: 2px solid grey;
     margin: 10px;
@@ -98,16 +106,16 @@ ITEM BOXES
     padding: 10px;
     background-color: lightgrey;
     font-size: 18px;
-    box-shadow: 2px 2px black;
+    border: 4px solid white;
 }
 
-.itemContainer:hover {
+.itemContainer:hover { /* invert container colors on hover */
     background: #E3DEC1;
     color: #3a7999;
     box-shadow: inset 0 0 0 3px teal;
 }
 
-.title {
+.title { /* keeps title text to one line */
     margin: 10px 0;
     white-space: nowrap;
     overflow: hidden;
@@ -127,41 +135,108 @@ DETAIL PAGE
 .detailPage {
     text-align: center;
     display: flex;
-    flex-direction: column;
-    width: 50%;
+    width: 75%;
     margin: 0 auto;
 }
 
+.detailShop {
+    font-style: italic;
+}
+
 .detailTitle {
-    font-size: 20px;
+    font-size: 24px;
     color: orangered;
     margin: 20px;
 }
 
 .detailImg {
     margin: 20px 15px 15px 15px;
+    height: 500px;
+    border: 4px solid white;
 }
 
 .detailDescription {
     font-size: 18px;
     color: black;
+    margin: 40px 0;
+    background: darkslategrey;
+    border-radius: 3%;
+    padding: 3%;
+    color: white;
 }
 
-.buyMe {
+.leftSide {
+    width: 75%;
+    padding: 20px;
+}
+
+.rightSide {
+    width: 75%;
+    padding: 20px;
+}
+
+.buyMeBtn {
     background-color: green;
     border-radius: 28px;
     display: inline-block;
     cursor: pointer;
     color: white;
-    font-size: 24px;
-    padding: 15px;
+    font-size: 18px;
+    padding: 10px;
     text-decoration: none;
     margin-bottom: 15px;
     width: 25%;
-    margin: 0 auto;
+    margin-right: 5px;
 }
 
-.buyMe:hover {
+.myStoreBtn {
+    background-color: blue;
+    border-radius: 28px;
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    font-size: 18px;
+    padding: 10px;
+    text-decoration: none;
+    margin-bottom: 15px;
+    width: 25%;
+    margin-left: 5px;
+}
+
+.buyMeBtn:hover {
     background: white;
     color: green;
+}
+
+.myStoreBtn:hover {
+    background: white;
+    color: blue;
+}
+
+.buyMeBtn:focus, .myStoreBtn:focus {
+    outline: none;
+}
+
+p {
+    font-size: 24px;
+    margin-top: 20px;
+}
+
+p a {
+    margin: 0 20px;
+}
+
+p a:visited {
+    color: blue;
+}
+
+/*--------------------------------------------------
+MEDIA QUERIES
+--------------------------------------------------*/
+
+@media (max-width: 550px) {
+
+.headline {
+    font-size: 28px;
+    }
 }

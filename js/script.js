@@ -59,13 +59,17 @@ var SingleView = Backbone.View.extend({ // render view for details page
 
     render: function() { // build html for details page
         var containerNode = document.querySelector('.container')
-        var htmlString = ''
         console.log(this)
+        var htmlString = ''
         htmlString += '<div class="detailPage">'
-                    + '<a href="https://www.etsy.com/listing/' + this.model.get("listing_id") + '"' + 'target="_blank"><button type="button" class="buyMe">Buy Me!</button></a>'
-                    + '<div class ="detailTitle">' + this.model.get('title') + '</div>'
+                    + '<div class="leftSide">'
                     + '<img class ="detailImg" src="' + this.model.get('Images')[0].url_570xN + '">'
+                    + '<div class="detailShop">' + 'Shop: ' + this.model.get("Shop").shop_name + '</div></div>'
+                    + '<div class="rightSide">'
+                    + '<div class ="detailTitle">' + this.model.get('title') + '</div>'
                     + '<div class="detailDescription">' + this.model.get('description') + '</div>'
+                    + '<a href="https://www.etsy.com/listing/' + this.model.get("listing_id") + '"' + 'target="_blank"><button type="button" class="buyMeBtn">' + '$' + this.model.get("price") + '</button></a>'
+                    + '<a href="' + this.model.get("Shop").url + '"' + 'target="_blank"><button type="button" class="myStoreBtn">' + 'My Store' + '</button></a>'
                     + '</div>'
         containerNode.innerHTML = htmlString
     }
@@ -89,7 +93,7 @@ var EtsyRouter = Backbone.Router.extend({
         homeInstance.fetch({ // send request for all etsy listings
             dataType: 'jsonp',
             data: {
-                includes: "Images",
+                includes: "Images,Shop",
                 "api_key": apiKey,
                 limit: 50
 
@@ -105,7 +109,7 @@ var EtsyRouter = Backbone.Router.extend({
         newSearch.fetch({ // send request for particular etsy listings
             dataType: 'jsonp',
             data: {
-                includes: "Images",
+                includes: "Images,Shop",
                 "api_key": apiKey,
                 keywords: query,
                 limit: 50
@@ -122,7 +126,7 @@ var EtsyRouter = Backbone.Router.extend({
         singleInstance.fetch({ // send request for details of esty listing
             dataType: 'jsonp',
             data: {
-                includes: "Images",
+                includes: "Images,Shop",
                 "api_key": apiKey
             }
         })
