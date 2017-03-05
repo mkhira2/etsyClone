@@ -37,6 +37,7 @@ var MultiView = Backbone.View.extend({ // render home page with all listings
     },
 
     render: function() { // build html for home page
+        document.querySelector('.hero').style = "height: 325px;" // maintains hero image on home page after hash change
         var containerNode = document.querySelector('.container')
         var htmlString = ''
         this.collection.forEach(function(inputModel) {
@@ -53,6 +54,7 @@ var MultiView = Backbone.View.extend({ // render home page with all listings
 
 var SingleView = Backbone.View.extend({ // render view for details page
     initialize: function() {
+        document.querySelector('.hero').style = "display: none;" // hides hero image on detail view
         document.querySelector('.container').innerHTML = '<img src="magnify.gif">' // loading gif
         this.listenTo(this.model, 'sync', this.render) // when the model syncs with the server, run render function
     },
