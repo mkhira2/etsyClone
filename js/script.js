@@ -59,7 +59,6 @@ var SingleView = Backbone.View.extend({ // render view for details page
 
     render: function() { // build html for details page
         var containerNode = document.querySelector('.container')
-        console.log(this)
         var htmlString = ''
         htmlString += '<div class="detailPage">'
                     + '<div class="leftSide">'
@@ -94,9 +93,7 @@ var EtsyRouter = Backbone.Router.extend({
             dataType: 'jsonp',
             data: {
                 includes: "Images,Shop",
-                "api_key": apiKey,
-                limit: 50
-
+                "api_key": apiKey
             }
         })
         new MultiView({
@@ -111,8 +108,7 @@ var EtsyRouter = Backbone.Router.extend({
             data: {
                 includes: "Images,Shop",
                 "api_key": apiKey,
-                keywords: query,
-                limit: 50
+                keywords: query
             }
         })
         new MultiView({
