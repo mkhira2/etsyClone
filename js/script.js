@@ -54,6 +54,7 @@ var MultiView = Backbone.View.extend({ // render home page with all listings
 
 var SingleView = Backbone.View.extend({ // render view for details page
     initialize: function() {
+        console.log(this)
         document.querySelector('.hero').style = "display: none;" // hides hero image on detail view
         document.querySelector('.container').innerHTML = '<img src="magnify.gif">' // loading gif
         this.listenTo(this.model, 'sync', this.render) // when the model syncs with the server, run render function
@@ -145,8 +146,8 @@ var EtsyRouter = Backbone.Router.extend({
 var searchNode = document.querySelector('.search')
 searchNode.addEventListener('keydown', function(eventObj) {
         if (eventObj.keyCode === 13) {
-            var input = eventObj.target.value 
-            location.hash = 'search/' + input 
+            var input = eventObj.target.value
+            location.hash = 'search/' + input
             eventObj.target.value = ''
         }
     })
