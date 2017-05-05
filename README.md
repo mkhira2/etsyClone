@@ -5,7 +5,7 @@ real time. Enjoy!
 
 
 ## Screenshot
-![Getsy](images/nytapp.png)
+![Getsy](images/etsy.png)
 
 ## Installation
 
